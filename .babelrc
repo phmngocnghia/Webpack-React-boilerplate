@@ -1,0 +1,28 @@
+{
+  "presets": [
+    [
+      "@babel/typescript",
+      {
+        "allExtensions": true,
+        "isTSX": true
+      }
+    ],
+    [
+      "@babel/preset-env",
+      {
+        "targets": {
+          "esmodules": true
+        }
+      }
+    ],
+    "@babel/react"
+  ],
+  "plugins": [
+    "@babel/plugin-transform-runtime",
+    "macros",
+    "react-hot-loader/babel"
+  ],
+  "ignore": [
+    "./scripts/codegen/recursiveGenerateExportFile/__test__"
+  ]
+}
