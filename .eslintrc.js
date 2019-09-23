@@ -24,7 +24,9 @@ module.exports = {
   "rules": {
     "@typescript-eslint/explicit-function-return-type": "off",
     "comma-style": "error",
-    "@typescript-eslint/no-unused-vars": "error"
+    "@typescript-eslint/no-unused-vars": "error",
+    "react/prop-types": "off",
+    "@typescript-eslint/no-var-requires": "off"
   },
   "settings": {
     // eslint rule react require this settings
@@ -32,6 +34,10 @@ module.exports = {
       "pragma": "React",
       "version": "detect"
     }
+  },
+
+  "globals": {
+    "tw": true
   },
 
   // parser for typescript

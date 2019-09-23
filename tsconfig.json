@@ -7,6 +7,8 @@
     "typeRoots": ["./src/types"],
     "types": ["globals"],
     "paths": {
+      "@App": ["src/components/App"],
+      "@App/*": ["src/components/App/*"],
       "@assets": ["./src/assets"],
       "@assets/*": ["./src/assets/*"],
       "@components": ["./src/components"],
@@ -19,6 +21,8 @@
       "@store/*": ["./src/store/*"],
       "@styles": ["./src/styles"],
       "@styles/*": ["./src/styles/*"],
+      "@types": ["./src/types"],
+      "@types/*": ["./src/types/*"],
       "@utils": ["./src/utils"],
       "@utils/*": ["./src/utils/*"],
       "@/*": ["./src/*"]

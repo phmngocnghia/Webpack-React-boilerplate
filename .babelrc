@@ -15,11 +15,12 @@
         }
       }
     ],
-    "@babel/react"
+    "@babel/react",
+    "@emotion/babel-preset-css-prop"
   ],
   "plugins": [
+    "emotion",
     "@babel/plugin-transform-runtime",
-    "macros",
     "react-hot-loader/babel"
   ],
   "ignore": [

@@ -4,6 +4,7 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPl
 
 const developmentConfig = merge(commonConfig, {
   mode: 'development',
+  devtool: 'eval-source-map'
 })
 
 

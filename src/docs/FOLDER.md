@@ -22,4 +22,4 @@
 }
 ```
 
-This is done automatically using codegen command
+This is done automatically using gen:ts-config command
