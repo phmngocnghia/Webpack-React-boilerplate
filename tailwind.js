@@ -2,29 +2,26 @@ module.exports = {
   theme: {
     extend: {
       screens: {
+        xs: { max: "375px" },
         lg: "376px"
       },
       colors: {
-        "dark-blue": "hsl(243, 87%, 12%)",
-        green: "hsl(163, 95%, 43%)",
-        gray: "hsl(0, 0%, 50%)",
-        "gray-lighter": "rgb(239, 239, 239)",
-        white: "rgb(255,255,255)"
+        pink: "hsl(322, 100%, 66%)",
+        "dark-cyan": "hsl(192, 100%, 9%)",
+        "pale-blue": "hsl(207, 100%, 98%)",
+        gray: "rgb(143, 147, 150)"
       },
       fontFamily: {
-        body: ['"Open Sans"', "sans-serif"],
-        heading: ["Raleway", "sans-serif"]
+        heading: ["Poppins", "sans-serif"],
+        body: ["Open Sans", "sans-serif"]
       },
       spacing: {
-        // object spacing
-        container: "40px",
-        icon: "20px",
-
-        // container spacing
-        small: "10px",
-        medium: "20px",
-        big: "30px",
-        "super-big": "60px"
+        container: "100px",
+        "container-mobile": "25px",
+        small: "15px",
+        medium: "25px",
+        big: "50px",
+        "super-big": "100px"
       }
     }
   },

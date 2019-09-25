@@ -1,20 +1,12 @@
-body {
-  @apply font-body;
-}
-
-a {
-  @apply text-dark-blue underline;
-}
-
-p {
-  @apply font-body text-gray;
-}
-
 h1,
 h2,
 h3,
 h4,
 h5,
 h6 {
-  @apply font-heading text-dark-blue;
+  @apply font-heading;
+}
+
+body {
+  @apply font-body text-lg;
 }

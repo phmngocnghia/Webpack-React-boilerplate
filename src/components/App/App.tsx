@@ -3,7 +3,7 @@ import { hot } from "react-hot-loader/root";
 import "@/styles/index.css";
 
 const _App = () => {
-  return <div />;
+  return <div></div>;
 };
 
 export const App = hot(_App);
