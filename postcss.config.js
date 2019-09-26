@@ -4,8 +4,9 @@ const purgecss = require("@fullhuman/postcss-purgecss");
 module.exports = ({ env }) => {
   const isProduction = env === "production";
   const plugins = [
+    require("autoprefixer"),
     require("tailwindcss")("./tailwind.js"),
-    require("autoprefixer")
+    require("postcss-nested")
   ];
 
   if (isProduction) {

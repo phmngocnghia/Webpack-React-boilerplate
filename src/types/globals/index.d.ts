@@ -1,5 +1,14 @@
-declare var tw:any
-declare module "*.svg"
+interface SvgrComponent extends React.StatelessComponent<React.SVGAttributes<SVGElement>> {}
+
+declare module '*.svg' {
+    const value: SvgrComponent;
+    export default value;
+}
+
+declare module "*.svg?url" {
+  const value: string
+  export default value
+}
 
 declare module "*.jpg" {
   export var preSrc: string;

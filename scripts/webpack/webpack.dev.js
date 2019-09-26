@@ -6,6 +6,9 @@ const developmentConfig = merge(commonConfig, {
   mode: 'development',
   devtool: 'eval-source-map'
 })
+console.log(developmentConfig);
+
+
 
 
 module.exports = developmentConfig

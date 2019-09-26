@@ -5,7 +5,7 @@
     "lib": ["es6", "dom"],
     "baseUrl": ".",
     "typeRoots": ["./src/types"],
-    "types": ["globals"],
+    "types": ["globals", "node"],
     "paths": {
       "@App": ["src/components/App"],
       "@App/*": ["src/components/App/*"],

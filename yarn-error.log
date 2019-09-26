@@ -1,5 +1,5 @@
 Arguments: 
-  /usr/local/bin/node /usr/local/Cellar/yarn/1.17.3/libexec/bin/yarn.js add --dev tailwind-components@next
+  /usr/local/bin/node /usr/local/Cellar/yarn/1.17.3/libexec/bin/yarn.js add --dev className
 
 PATH: 
   /usr/local/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/go/bin:/Users/phmngocnghia/go:/Users/phmngocnghia/go/bin:/Users/phmngocnghia/.fzf/bin:/usr/local/go/bin:/Users/phmngocnghia/go:/Users/phmngocnghia/go/bin
@@ -14,7 +14,7 @@ Platform:
   darwin x64
 
 Trace: 
-  Error: https://registry.yarnpkg.com/tailwind-components: Not found
+  Error: https://registry.yarnpkg.com/className: Not found
       at Request.params.callback [as _callback] (/usr/local/Cellar/yarn/1.17.3/libexec/lib/cli.js:66830:18)
       at Request.self.callback (/usr/local/Cellar/yarn/1.17.3/libexec/lib/cli.js:140464:22)
       at Request.emit (events.js:189:13)
@@ -51,20 +51,20 @@ npm manifest:
       ]
     },
     "version": "1.0.0",
-    "main": "index.js",
     "license": "MIT",
     "scripts": {
       "dev:gen-index-file": "concurrently 'yarn gen:index-file -w' 'yarn dev'",
       "dev": "webpack-dev-server --hot --config ./scripts/webpack/webpack.dev.js",
       "dev:open": "webpack-dev-server --hot --open --config ./scripts/webpack/webpack.dev.js",
-      "analyze": "ANALYZE=true NODE_ENV=production webpack --config ./scripts/webpack/webpack.prod.js",
+      "analyze": "rm -rf public && ANALYZE=true NODE_ENV=production webpack --config ./scripts/webpack/webpack.prod.js",
       "build": "rm -rf public && NODE_ENV=production webpack --config ./scripts/webpack/webpack.prod.js",
-      "lint": "eslint ./src/core/**/*.ts",
+      "lint": "eslint './src/**/*.ts' && eslint './src/**/*.tsx'",
+      "lint:fix": "eslint './src/**/*.ts' --fix && eslint './src/**/*.tsx' --fix",
       "test": "jest --watch",
       "test:coverage": "jest --coverage",
       "serve": "serve -l 8080 dist",
       "gen:ts-config": "node './scripts/generateTsConfig.js'",
-      "gen:index-file": "autogen-export -c -r",
+      "gen:index-file": "autogen-export -c -r && yarn lint:fix",
       "test:one": "jest -t --watch 'generateIndexTs'",
       "storybook": "start-storybook -p 6006",
       "build-storybook": "build-storybook"
@@ -80,12 +80,13 @@ npm manifest:
       "@babel/preset-typescript": "^7.3.3",
       "@babel/runtime": "^7.5.5",
       "@babel/types": "^7.5.5",
-      "@emotion/core": "^10.0.17",
+      "@emotion/babel-preset-css-prop": "^10.0.17",
       "@emotion/styled": "^10.0.17",
       "@fullhuman/postcss-purgecss": "^1.2.0",
       "@storybook/addon-actions": "^5.2.1",
       "@storybook/addon-links": "^5.2.1",
       "@storybook/addon-storysource": "^5.2.1",
+      "@storybook/addon-viewport": "^5.2.1",
       "@storybook/addons": "^5.2.1",
       "@storybook/react": "^5.2.1",
       "@svgr/webpack": "^4.3.2",
@@ -97,8 +98,8 @@ npm manifest:
       "@typescript-eslint/parser": "^1.12.0",
       "autoprefixer": "^9.6.1",
       "babel-loader": "^8.0.6",
+      "babel-plugin-emotion": "^10.0.19",
       "babel-plugin-macros": "^2.6.1",
-      "babel-plugin-tailwind-components": "^1.0.0-alpha.0",
       "babel-plugin-ts-optchain": "^1.1.5",
       "concurrently": "^4.1.2",
       "core-js": "3",
@@ -128,6 +129,7 @@ npm manifest:
       "postcss-flexbugs-fixes": "^4.1.0",
       "postcss-import": "^12.0.1",
       "postcss-loader": "^3.0.0",
+      "postcss-scss": "^2.0.0",
       "prettier": "^1.18.2",
       "purgecss": "^1.3.0",
       "react-hot-loader": "^4.12.13",
@@ -139,13 +141,14 @@ npm manifest:
       "shallow-equal": "^1.2.0",
       "storybook": "^5.1.11",
       "style-loader": "^1.0.0",
-      "tailwind.macro": "^0.5.10",
+      "tailwind.macro": "^1.0.0-alpha.10",
       "tailwindcss": "^1.1.2",
       "ts-jest": "^24.0.2",
       "ts-node": "^8.3.0",
       "ts-optchain": "^0.1.8",
       "tsconfig-paths-webpack-plugin": "^3.2.0",
-      "typescript": "^3.5.3",
+      "typescript": "3.5.3",
+      "use-media": "^1.4.0",
       "webpack": "^4.35.2",
       "webpack-bundle-analyzer": "^3.4.1",
       "webpack-cli": "^3.3.5",
@@ -242,7 +245,7 @@ Lockfile:
       semver "^5.4.1"
       source-map "^0.5.0"
   
-  "@babel/generator@^7.0.0", "@babel/generator@^7.4.0", "@babel/generator@^7.6.0":
+  "@babel/generator@^7.4.0", "@babel/generator@^7.6.0":
     version "7.6.0"
     resolved "https://registry.yarnpkg.com/@babel/generator/-/generator-7.6.0.tgz#e2c21efbfd3293ad819a2359b448f002bfdfda56"
     integrity sha512-Ms8Mo7YBdMMn1BYuNtKuP/z0TgEIhbcyB8HVR6PPNYp4P61lMsABiS4A3VG1qznjXVCf3r+fVHhm4efTYVsySA==
@@ -446,7 +449,7 @@ Lockfile:
       esutils "^2.0.2"
       js-tokens "^4.0.0"
   
-  "@babel/parser@^7.0.0", "@babel/parser@^7.1.0", "@babel/parser@^7.1.6", "@babel/parser@^7.4.2", "@babel/parser@^7.4.3", "@babel/parser@^7.5.5", "@babel/parser@^7.6.0":
+  "@babel/parser@^7.1.0", "@babel/parser@^7.1.6", "@babel/parser@^7.4.2", "@babel/parser@^7.4.3", "@babel/parser@^7.5.5", "@babel/parser@^7.6.0":
     version "7.6.0"
     resolved "https://registry.yarnpkg.com/@babel/parser/-/parser-7.6.0.tgz#3e05d0647432a8326cb28d0de03895ae5a57f39b"
     integrity sha512-+o2q111WEx4srBs7L9eJmcwi655eD8sXniLqMB93TBK9GrNzGrxDWSjiqz2hLU0Ha8MTXFIP0yd9fNdP+m43ZQ==
@@ -806,7 +809,7 @@ Lockfile:
       "@babel/helper-plugin-utils" "^7.0.0"
       "@babel/plugin-syntax-jsx" "^7.2.0"
   
-  "@babel/plugin-transform-react-jsx@^7.0.0":
+  "@babel/plugin-transform-react-jsx@^7.0.0", "@babel/plugin-transform-react-jsx@^7.3.0":
     version "7.3.0"
     resolved "https://registry.yarnpkg.com/@babel/plugin-transform-react-jsx/-/plugin-transform-react-jsx-7.3.0.tgz#f2cab99026631c767e2745a5368b331cfe8f5290"
     integrity sha512-a/+aRb7R06WcKvQLOu4/TpjKOdvVEKRLWFpKcNuHhiREPgGRB4TQJxq07+EZLS8LFVYpfq1a5lDUnuMdcCpBKg==
@@ -1050,6 +1053,23 @@ Lockfile:
     dependencies:
       exec-sh "^0.3.2"
       minimist "^1.2.0"
+  
+  "@emotion/babel-plugin-jsx-pragmatic@^0.1.3":
+    version "0.1.3"
+    resolved "https://registry.yarnpkg.com/@emotion/babel-plugin-jsx-pragmatic/-/babel-plugin-jsx-pragmatic-0.1.3.tgz#e06489b00bda80304e7198be76f448dd267df397"
+    integrity sha512-zbxpcKoAX9IMRfJqT2EnYL29AGlJyn+1VPoZW73BJslRDJbzgo2RYJIxR3Hg48kifv/TduIkpMH3L3wU/7yP8g==
+    dependencies:
+      "@babel/plugin-syntax-jsx" "^7.2.0"
+  
+  "@emotion/babel-preset-css-prop@^10.0.17":
+    version "10.0.17"
+    resolved "https://registry.yarnpkg.com/@emotion/babel-preset-css-prop/-/babel-preset-css-prop-10.0.17.tgz#8ec9b6abe5f95c7dfb455e71810c2d3a12929245"
+    integrity sha512-vlgk87XKLlko7CTFOn8Iz1zkKWJjyPXXJRg6yI+GnvhxuSjurjctx+Z/bAKgQgXOdDNs0cmU90A3kOemq5XtzA==
+    dependencies:
+      "@babel/plugin-transform-react-jsx" "^7.3.0"
+      "@babel/runtime" "^7.5.5"
+      "@emotion/babel-plugin-jsx-pragmatic" "^0.1.3"
+      babel-plugin-emotion "^10.0.17"
   
   "@emotion/cache@^10.0.14", "@emotion/cache@^10.0.17", "@emotion/cache@^10.0.9":
     version "10.0.19"
@@ -1801,6 +1821,23 @@ Lockfile:
       prop-types "^15.7.2"
       react-syntax-highlighter "^8.0.1"
       regenerator-runtime "^0.12.1"
+      util-deprecate "^1.0.2"
+  
+  "@storybook/addon-viewport@^5.2.1":
+    version "5.2.1"
+    resolved "https://registry.yarnpkg.com/@storybook/addon-viewport/-/addon-viewport-5.2.1.tgz#3cc8ec9f2ee1dd0a474cb8dd47ecee8428defe77"
+    integrity sha512-RZU+l99X5SfvBfYbqAbgGgL95g19/dddPwlijLOqFcUlf+tk7WD08PRbizWlnRFZ15J0ytVgf256XSQoQ1oMCQ==
+    dependencies:
+      "@storybook/addons" "5.2.1"
+      "@storybook/api" "5.2.1"
+      "@storybook/client-logger" "5.2.1"
+      "@storybook/components" "5.2.1"
+      "@storybook/core-events" "5.2.1"
+      "@storybook/theming" "5.2.1"
+      core-js "^3.0.1"
+      global "^4.3.2"
+      memoizerific "^1.11.3"
+      prop-types "^15.7.2"
       util-deprecate "^1.0.2"
   
   "@storybook/addons@5.2.1", "@storybook/addons@^5.2.1":
@@ -3260,7 +3297,7 @@ Lockfile:
     dependencies:
       object.assign "^4.1.0"
   
-  babel-plugin-emotion@^10.0.14, babel-plugin-emotion@^10.0.17:
+  babel-plugin-emotion@^10.0.14, babel-plugin-emotion@^10.0.17, babel-plugin-emotion@^10.0.19:
     version "10.0.19"
     resolved "https://registry.yarnpkg.com/babel-plugin-emotion/-/babel-plugin-emotion-10.0.19.tgz#67b9b213f7505c015f163a387a005c12c502b1de"
     integrity sha512-1pJb5uKN/gx6bi3gGr588Krj49sxARI9KmxhtMUa+NRJb6lR3OfC51mh3NlWRsOqdjWlT4cSjnZpnFq5K3T5ZA==
@@ -3300,7 +3337,7 @@ Lockfile:
     dependencies:
       "@types/babel__traverse" "^7.0.6"
   
-  babel-plugin-macros@2.6.1, babel-plugin-macros@^2.0.0, babel-plugin-macros@^2.1.0, babel-plugin-macros@^2.2.1, babel-plugin-macros@^2.4.5, babel-plugin-macros@^2.5.1, babel-plugin-macros@^2.6.1:
+  babel-plugin-macros@2.6.1, babel-plugin-macros@^2.0.0, babel-plugin-macros@^2.2.1, babel-plugin-macros@^2.4.5, babel-plugin-macros@^2.5.1, babel-plugin-macros@^2.6.1:
     version "2.6.1"
     resolved "https://registry.yarnpkg.com/babel-plugin-macros/-/babel-plugin-macros-2.6.1.tgz#41f7ead616fc36f6a93180e89697f69f51671181"
     integrity sha512-6W2nwiXme6j1n2erPOnmRiWfObUhWH7Qw1LMi9XZy8cj+KtESu3T6asZvtk5bMQQjX8te35o7CFueiSdL/2NmQ==
@@ -3403,26 +3440,6 @@ Lockfile:
     version "6.18.0"
     resolved "https://registry.yarnpkg.com/babel-plugin-syntax-jsx/-/babel-plugin-syntax-jsx-6.18.0.tgz#0af32a9a6e13ca7a3fd5069e62d7b0f58d0d8946"
     integrity sha1-CvMqmm4Tyno/1QaeYtew9Y0NiUY=
-  
-  babel-plugin-tailwind-components@0.5.10:
-    version "0.5.10"
-    resolved "https://registry.yarnpkg.com/babel-plugin-tailwind-components/-/babel-plugin-tailwind-components-0.5.10.tgz#33e3574e7a5ec80d108c7d3d7c424ccd018e390c"
-    integrity sha512-AVZuc+ts2FtTUKJgHb0GyIA89xYeczqTDAM9qjxtEVKgz4gWmqs7HtsC4DPXg0telTZWobwLK1Jw1Cimik1CgA==
-    dependencies:
-      "@babel/generator" "^7.0.0"
-      "@babel/parser" "^7.0.0"
-      babel-plugin-macros "^2.1.0"
-  
-  babel-plugin-tailwind-components@^1.0.0-alpha.0:
-    version "1.0.0-alpha.0"
-    resolved "https://registry.yarnpkg.com/babel-plugin-tailwind-components/-/babel-plugin-tailwind-components-1.0.0-alpha.0.tgz#138ad36f04cc9b470c35df119398bfe73a5d3a03"
-    integrity sha512-oQNIX02Fl7rC0AG+l+h6dY6/yn4cPzJ7f2G38kSdrAjwJgtlmCA+KmLZ6kTZFUkHE52UOne7z1M/1GiwSYwd9A==
-    dependencies:
-      "@babel/parser" "^7.4.2"
-      babel-plugin-macros "^2.5.1"
-      dlv "^1.1.2"
-      dset "^2.0.1"
-      tailwindcss "^1.0.0-beta.4"
   
   babel-plugin-transform-inline-consecutive-adds@^0.4.3:
     version "0.4.3"
@@ -11951,6 +11968,13 @@ Lockfile:
       postcss "^7.0.0"
       postcss-value-parser "^3.0.0"
   
+  postcss-scss@^2.0.0:
+    version "2.0.0"
+    resolved "https://registry.yarnpkg.com/postcss-scss/-/postcss-scss-2.0.0.tgz#248b0a28af77ea7b32b1011aba0f738bda27dea1"
+    integrity sha512-um9zdGKaDZirMm+kZFKKVsnKPF7zF7qBAtIfTSnZXD1jZ0JNZIxdB6TxQOjCnlSzLRInVl2v3YdBh/M881C4ug==
+    dependencies:
+      postcss "^7.0.0"
+  
   postcss-selector-parser@^3.0.0:
     version "3.1.1"
     resolved "https://registry.yarnpkg.com/postcss-selector-parser/-/postcss-selector-parser-3.1.1.tgz#4f875f4afb0c96573d5cf4d74011aee250a7e865"
@@ -14427,14 +14451,18 @@ Lockfile:
       slice-ansi "^2.1.0"
       string-width "^3.0.0"
   
-  tailwind.macro@^0.5.10:
-    version "0.5.10"
-    resolved "https://registry.yarnpkg.com/tailwind.macro/-/tailwind.macro-0.5.10.tgz#17e4ca07bcdeaa50cc4fdc011a9c5c966b9351c8"
-    integrity sha512-ZV2rbd5Q3W7j1HJYzK1I9Q6wkkRVe0J//EprN/XHLKs8bImXkYv1ZcpMM030iSdO/ZBc19YW3CfkRpA25gBg5A==
+  tailwind.macro@^1.0.0-alpha.10:
+    version "1.0.0-alpha.10"
+    resolved "https://registry.yarnpkg.com/tailwind.macro/-/tailwind.macro-1.0.0-alpha.10.tgz#f617661dabfdde2276ab7e1bb07ce1f590ced3c4"
+    integrity sha512-JmQ6kz3qssU2Ov7GPM1lH9435vwQ98YpJfKwIYw4taCJ3sPpfuL7kMQtOnFlp0fi6TgWewJwaq4oRrJ9RrEiEw==
     dependencies:
-      babel-plugin-tailwind-components "0.5.10"
+      "@babel/parser" "^7.4.2"
+      babel-plugin-macros "^2.5.1"
+      dlv "^1.1.2"
+      dset "^2.0.1"
+      tailwindcss "^1.0.0-beta.8"
   
-  tailwindcss@^1.0.0-beta.4, tailwindcss@^1.1.2:
+  tailwindcss@^1.0.0-beta.8, tailwindcss@^1.1.2:
     version "1.1.2"
     resolved "https://registry.yarnpkg.com/tailwindcss/-/tailwindcss-1.1.2.tgz#0107dc092c3edee6132b105d896b109c0f66afd6"
     integrity sha512-mcTzZHXMipnQY9haB17baNJmBTkYYcC8ljfMdB9/97FfhKJIzlglJcyGythuQTOu7r/QIbLfZYYWZhAvaGj95A==
@@ -14914,10 +14942,10 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
     integrity sha1-hnrHTjhkGHsdPUfZlqeOxciDB3c=
   
-  typescript@^3.5.3:
-    version "3.6.3"
-    resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.6.3.tgz#fea942fabb20f7e1ca7164ff626f1a9f3f70b4da"
-    integrity sha512-N7bceJL1CtRQ2RiG0AQME13ksR7DiuQh/QehubYcghzv20tnh+MQnQIuJddTmsbqYj+dztchykemz0zFzlvdQw==
+  typescript@3.5.3:
+    version "3.5.3"
+    resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.5.3.tgz#c830f657f93f1ea846819e929092f5fe5983e977"
+    integrity sha512-ACzBtm/PhXBDId6a6sDJfroT2pOWt/oOnk4/dElG5G33ZL776N3Y6/6bKZJBFpd+b05F3Ct9qDjMeJmRWtE2/g==
   
   ua-parser-js@^0.7.18:
     version "0.7.20"
@@ -15254,6 +15282,11 @@ Lockfile:
     dependencies:
       punycode "1.3.2"
       querystring "0.2.0"
+  
+  use-media@^1.4.0:
+    version "1.4.0"
+    resolved "https://registry.yarnpkg.com/use-media/-/use-media-1.4.0.tgz#e777bf1f382a7aacabbd1f9ce3da2b62e58b2a98"
+    integrity sha512-XsgyUAf3nhzZmEfhc5MqLHwyaPjs78bgytpVJ/xDl0TF4Bptf3vEpBNBBT/EIKOmsOc8UbuECq3mrP3mt1QANA==
   
   use@^3.1.0:
     version "3.1.1"

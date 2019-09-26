@@ -1,2 +1,2 @@
 export * from "./app";
-export * from "./hocs";
+export * from "./ui";

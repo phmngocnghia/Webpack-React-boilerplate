@@ -1,5 +1,6 @@
 var path = require("path");
 var devMode = process.env.NODE_ENV !== 'production';
+var Dotenv = require('dotenv-webpack');
 var MiniCssExtractPlugin = require('mini-css-extract-plugin');
 var ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
 var HtmlWebpackPlugin = require("html-webpack-plugin");
@@ -7,7 +8,7 @@ var TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin')
 var devMode = process.env.NODE_ENV !== 'production';
 const rootDirectory = process.cwd()
 
-module.exports = {
+const configs = {
   mode: "development",
   entry: path.resolve(rootDirectory, "./src/index.tsx"),
   output: {
@@ -20,7 +21,16 @@ module.exports = {
         // Typescript
         test: /\.tsx?$/,
         // shortcut use[{loader}]
-        loader: ["babel-loader", "eslint-loader"]
+        // loader: ["babel-loader",  "eslint-loader"]
+        use: [
+          'babel-loader',
+          {
+            loader: 'linaria/loader',
+            options: {
+              sourceMap: devMode,
+            },
+          },
+        ]
       },
       {
         // image
@@ -41,7 +51,7 @@ module.exports = {
               name: "[name].[hash].[ext]",
               outputPath: "./assets"
             }
-          },   {
+          }, {
             loader: 'image-webpack-loader',
             options: {
               disable: devMode, // webpack@2.x and newer
@@ -64,7 +74,14 @@ module.exports = {
       }, {
         // Svg
         test: /\.svg$/,
-        use: ['@svgr/webpack'],
+        oneOf: [
+          {
+            resourceQuery: /url/,
+            loader: 'url-loader'
+          }, {
+            loader: '@svgr/webpack',
+          }
+        ]
       }
     ]
   },
@@ -92,15 +109,25 @@ module.exports = {
     ]
   },
   plugins: [
-    new ForkTsCheckerWebpackPlugin({
-      tsconfig: path.resolve(rootDirectory, './tsconfig.json')
+    new Dotenv({
+      path: "./.env"
     }),
     new HtmlWebpackPlugin({
       // template inject assset to
       template: path.resolve(rootDirectory, "./src/assets/index.html")
-    })
+    }),
   ],
   node: {
     fs: 'empty'
   }
 };
+
+// errors prevent HMR from working properly
+if (!devMode) {
+  configs.module.rules[0].use.push('eslint-loader')
+  configs.plugins.unshift(new ForkTsCheckerWebpackPlugin({
+    tsconfig: path.resolve(rootDirectory, './tsconfig.json')
+  }))
+}
+
+module.exports = configs

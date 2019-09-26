@@ -1,5 +1,7 @@
+.linaria-cache
 node_modules
 coverage
 public
 temp
 dist
+.env

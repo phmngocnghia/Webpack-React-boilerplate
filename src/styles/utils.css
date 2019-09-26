@@ -1,0 +1,6 @@
+.p-container {
+  padding: 100px;
+  @screen xs {
+    padding: 25px;
+  }
+}

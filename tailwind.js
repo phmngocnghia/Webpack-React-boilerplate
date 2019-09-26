@@ -6,18 +6,19 @@ module.exports = {
         lg: "376px"
       },
       colors: {
-        pink: "hsl(322, 100%, 66%)",
-        "dark-cyan": "hsl(192, 100%, 9%)",
-        "pale-blue": "hsl(207, 100%, 98%)",
-        gray: "rgb(143, 147, 150)"
+        "dark-header": "hsl(217, 28%, 15%)",
+        "dark-bg": "hsl(218, 28%, 13%)",
+        "dark-footer": "hsl(216, 53%, 9%)",
+        "dark-testimotion": "hsl(219, 30%, 18%)",
+        cyan: "hsl(176, 68%, 64%)",
+        blue: "hsl(198, 60%, 50%)",
+        white: "white"
       },
       fontFamily: {
-        heading: ["Poppins", "sans-serif"],
+        heading: ["Raleway", "sans-serif"],
         body: ["Open Sans", "sans-serif"]
       },
       spacing: {
-        container: "100px",
-        "container-mobile": "25px",
         small: "15px",
         medium: "25px",
         big: "50px",

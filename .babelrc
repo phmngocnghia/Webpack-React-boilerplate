@@ -11,17 +11,15 @@
       "@babel/preset-env",
       {
         "targets": {
-          "esmodules": true
+          "esmodules": true,
         }
       }
     ],
     "@babel/react",
-    "@emotion/babel-preset-css-prop"
   ],
   "plugins": [
-    "emotion",
     "@babel/plugin-transform-runtime",
-    "react-hot-loader/babel"
+    "react-hot-loader/babel",
   ],
   "ignore": [
     "./scripts/codegen/recursiveGenerateExportFile/__test__"
